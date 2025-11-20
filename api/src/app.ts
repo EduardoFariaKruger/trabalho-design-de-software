@@ -1,8 +1,5 @@
 import express from "express";
 import sequelize from "./database";
-import locationRoutes from "./routes/locationRoutes";
-import eventRoutes from "./routes/eventsRoutes";
-import categoryRoutes from "./routes/categoryRoutes"
 import swaggerUi from "swagger-ui-express";
 import YAML from "yamljs";
 
@@ -22,7 +19,7 @@ sequelize
   .catch((err) => console.error("Database connection error:", err));
 
 // Aqui a gente 
-app.use("/locations", locationRoutes);
+//app.use("/locations", locationRoutes);
 
 
 app.get("/", (_req, res) => {
