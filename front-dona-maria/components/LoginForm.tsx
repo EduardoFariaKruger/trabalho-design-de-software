@@ -18,7 +18,7 @@ export default function LoginForm() {
     // const res = await fetch('/api/login', { method: 'POST', body: JSON.stringify({ login, password }) })
     
     // Exemplo Simples (Simulação de sucesso):
-    if (login === 'teste@teste.com' && password === '123456') {
+    if (login === 'dona-maria' && password === '123456') {
         // 2. Redirecionamento em caso de sucesso
         router.push('/dashboard') // Redireciona para a primeira tela após o login
     } else {
@@ -39,7 +39,7 @@ export default function LoginForm() {
           required
           value={login}
           onChange={(e) => setLogin(e.target.value)}
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700"
         />
       </div>
 
@@ -53,7 +53,7 @@ export default function LoginForm() {
           required
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700"
         />
       </div>
 
