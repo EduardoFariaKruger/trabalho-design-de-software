@@ -2,7 +2,7 @@ export default function DashboardPage() {
     return (
       <div>
         <h1 className="text-4xl font-extrabold text-gray-900 mb-6">
-          Bem-vindo(a) ao Dona Maria Reservas!
+          Bem-vindo(a) ao Seu Cantinho!
         </h1>
         
         <p className="text-gray-600 mb-8">
