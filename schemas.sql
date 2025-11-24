@@ -16,11 +16,12 @@ CREATE TABLE ADM (
 
 CREATE TABLE Espaco (
     id_espaco SERIAL PRIMARY KEY,
-    fotos TEXT[],
+    nome TEXT,
+    descricao TEXT
     capacidade INTEGER NOT NULL,
     preco FLOAT NOT NULL,
     tipo TEXT,
-    diasDisponiveis DATE[]
+    diasIndisponiveis DATE[]
 );
 
 

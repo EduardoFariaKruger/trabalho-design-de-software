@@ -7,8 +7,11 @@ const Espaco = sequelize.define("Espaco", {
     primaryKey: true,
     autoIncrement: true
   },
-  fotos: {
-    type: DataTypes.ARRAY(DataTypes.TEXT)
+  nome: {
+    type: DataTypes.TEXT
+  },
+  descricao: {
+    type: DataTypes.TEXT
   },
   capacidade: {
     type: DataTypes.INTEGER,
