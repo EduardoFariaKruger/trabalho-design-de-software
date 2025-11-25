@@ -3,7 +3,7 @@ import sequelize from "./database";
 import swaggerUi from "swagger-ui-express";
 import yaml from "js-yaml";
 import fs from 'fs';
-
+import path from "path";
 
 import ADMRoutes from "./routes/adminController";
 import ClientRoutes from "./routes/clientController" 
@@ -14,7 +14,10 @@ import PagamentoRoutes from "./routes/pagamentoController";
 
 const app = express();
 
-const swaggerDocument = yaml.load(fs.readFileSync("swagger.yaml", "utf8"));
+
+const swaggerPath = path.join(process.cwd(), "swagger.yaml");
+const swaggerDocument = yaml.load(fs.readFileSync(swaggerPath, "utf8")) as Record<string, any>;
+
 
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 

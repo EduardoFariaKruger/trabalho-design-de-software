@@ -2,12 +2,28 @@ openapi: "3.0.3"
 info:
   title: API Cantinho Dona Maria
   version: "1.0.0"
-  description: API para gerenciamento de ADM, Clientes, Espaços, Reservas e Pagamentos
+  description: API para gerenciamento de ADMs, Clientes, Espaços, Reservas e Pagamentos
 servers:
   - url: http://localhost:3000
+
+tags:
+  - name: ADM
+    description: Operações relacionadas aos administradores
+  - name: Cliente
+    description: Operações relacionadas aos clientes
+  - name: Espaço
+    description: Operações relacionadas aos espaços
+  - name: Reserva
+    description: Operações relacionadas às reservas
+  - name: Pagamento
+    description: Operações relacionadas aos pagamentos
+
 paths:
+
   /adm/create:
     post:
+      tags:
+        - ADM
       summary: Criar um novo ADM
       requestBody:
         required: true
@@ -21,11 +37,14 @@ paths:
               properties:
                 nome:
                   type: string
+                  description: Nome completo do ADM
                 cpf:
                   type: integer
+                  description: CPF do ADM
                 datanasc:
                   type: string
                   format: date
+                  description: Data de nascimento do ADM
       responses:
         '201':
           description: ADM criado com sucesso
@@ -36,6 +55,8 @@ paths:
 
   /adm/all:
     get:
+      tags:
+        - ADM
       summary: Listar todos os ADMs
       responses:
         '200':
@@ -47,11 +68,14 @@ paths:
 
   /adm/getOne/{id}:
     get:
+      tags:
+        - ADM
       summary: Buscar um ADM pelo ID
       parameters:
         - name: id
           in: path
           required: true
+          description: ID do ADM
           schema:
             type: integer
       responses:
@@ -64,11 +88,14 @@ paths:
 
   /adm/update/{id}:
     put:
+      tags:
+        - ADM
       summary: Atualizar ADM
       parameters:
         - name: id
           in: path
           required: true
+          description: ID do ADM
           schema:
             type: integer
       requestBody:
@@ -95,11 +122,14 @@ paths:
 
   /adm/delete/{id}:
     delete:
+      tags:
+        - ADM
       summary: Deletar ADM
       parameters:
         - name: id
           in: path
           required: true
+          description: ID do ADM
           schema:
             type: integer
       responses:
@@ -110,8 +140,13 @@ paths:
         '500':
           description: Erro interno do servidor
 
+# -------------------------
+# Cliente
+# -------------------------
   /clients/create:
     post:
+      tags:
+        - Cliente
       summary: Criar cliente
       requestBody:
         required: true
@@ -125,11 +160,14 @@ paths:
               properties:
                 nome:
                   type: string
+                  description: Nome completo do cliente
                 cpf:
                   type: integer
+                  description: CPF do cliente
                 datanasc:
                   type: string
                   format: date
+                  description: Data de nascimento do cliente
       responses:
         '201':
           description: Cliente criado
@@ -140,6 +178,8 @@ paths:
 
   /clients/all:
     get:
+      tags:
+        - Cliente
       summary: Listar todos os clientes
       responses:
         '200':
@@ -151,11 +191,14 @@ paths:
 
   /clients/getOne/{id}:
     get:
+      tags:
+        - Cliente
       summary: Buscar cliente pelo ID
       parameters:
         - name: id
           in: path
           required: true
+          description: ID do cliente
           schema:
             type: integer
       responses:
@@ -168,11 +211,14 @@ paths:
 
   /clients/update/{id}:
     put:
+      tags:
+        - Cliente
       summary: Atualizar cliente
       parameters:
         - name: id
           in: path
           required: true
+          description: ID do cliente
           schema:
             type: integer
       requestBody:
@@ -199,11 +245,14 @@ paths:
 
   /clients/delete/{id}:
     delete:
+      tags:
+        - Cliente
       summary: Deletar cliente
       parameters:
         - name: id
           in: path
           required: true
+          description: ID do cliente
           schema:
             type: integer
       responses:
@@ -214,8 +263,13 @@ paths:
         '500':
           description: Erro interno do servidor
 
+# -------------------------
+# Espaço
+# -------------------------
   /espaco/create:
     post:
+      tags:
+        - Espaço
       summary: Criar espaço
       requestBody:
         required: true
@@ -252,6 +306,8 @@ paths:
 
   /espaco/all:
     get:
+      tags:
+        - Espaço
       summary: Listar todos os espaços
       responses:
         '200':
@@ -263,11 +319,14 @@ paths:
 
   /espaco/getOne/{id}:
     get:
+      tags:
+        - Espaço
       summary: Buscar espaço pelo ID
       parameters:
         - name: id
           in: path
           required: true
+          description: ID do espaço
           schema:
             type: integer
       responses:
@@ -280,11 +339,14 @@ paths:
 
   /espaco/update/{id}:
     put:
+      tags:
+        - Espaço
       summary: Atualizar espaço
       parameters:
         - name: id
           in: path
           required: true
+          description: ID do espaço
           schema:
             type: integer
       requestBody:
@@ -319,11 +381,14 @@ paths:
 
   /espaco/delete/{id}:
     delete:
+      tags:
+        - Espaço
       summary: Deletar espaço
       parameters:
         - name: id
           in: path
           required: true
+          description: ID do espaço
           schema:
             type: integer
       responses:
@@ -334,8 +399,13 @@ paths:
         '500':
           description: Erro interno do servidor
 
+# -------------------------
+# Reserva
+# -------------------------
   /reservas:
     get:
+      tags:
+        - Reserva
       summary: Listar todas as reservas
       responses:
         '200':
@@ -343,6 +413,8 @@ paths:
         '500':
           description: Erro interno do servidor
     post:
+      tags:
+        - Reserva
       summary: Criar uma reserva
       requestBody:
         required: true
@@ -370,11 +442,14 @@ paths:
 
   /reservas/{id}:
     get:
+      tags:
+        - Reserva
       summary: Obter reserva pelo ID
       parameters:
         - name: id
           in: path
           required: true
+          description: ID da reserva
           schema:
             type: integer
       responses:
@@ -385,11 +460,14 @@ paths:
         '500':
           description: Erro interno do servidor
     put:
+      tags:
+        - Reserva
       summary: Atualizar reserva
       parameters:
         - name: id
           in: path
           required: true
+          description: ID da reserva
           schema:
             type: integer
       requestBody:
@@ -416,11 +494,14 @@ paths:
         '500':
           description: Erro interno do servidor
     delete:
+      tags:
+        - Reserva
       summary: Deletar reserva
       parameters:
         - name: id
           in: path
           required: true
+          description: ID da reserva
           schema:
             type: integer
       responses:
@@ -431,8 +512,13 @@ paths:
         '500':
           description: Erro interno do servidor
 
+# -------------------------
+# Pagamento
+# -------------------------
   /pagamentos:
     get:
+      tags:
+        - Pagamento
       summary: Listar todos os pagamentos
       responses:
         '200':
@@ -440,6 +526,8 @@ paths:
         '500':
           description: Erro interno do servidor
     post:
+      tags:
+        - Pagamento
       summary: Criar pagamento
       requestBody:
         required: true
@@ -464,11 +552,14 @@ paths:
 
   /pagamentos/{id}:
     get:
+      tags:
+        - Pagamento
       summary: Obter pagamento pelo ID
       parameters:
         - name: id
           in: path
           required: true
+          description: ID do pagamento
           schema:
             type: integer
       responses:
@@ -479,11 +570,14 @@ paths:
         '500':
           description: Erro interno do servidor
     put:
+      tags:
+        - Pagamento
       summary: Atualizar pagamento
       parameters:
         - name: id
           in: path
           required: true
+          description: ID do pagamento
           schema:
             type: integer
       requestBody:
@@ -509,11 +603,14 @@ paths:
         '400':
           description: Erro ao atualizar pagamento
     delete:
+      tags:
+        - Pagamento
       summary: Deletar pagamento
       parameters:
         - name: id
           in: path
           required: true
+          description: ID do pagamento
           schema:
             type: integer
       responses:
