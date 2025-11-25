@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import sequelize from "../config/database.js";
+import sequelize from "../database";
 
 const Cliente = sequelize.define("Cliente", {
   id_cliente: {
@@ -16,11 +16,11 @@ const Cliente = sequelize.define("Cliente", {
     unique: true,
     allowNull: false
   },
-  dataNasc: {
+  datanasc: {
     type: DataTypes.DATEONLY
   }
 }, {
-  tableName: "Cliente",
+  tableName: "cliente",
   schema: "dona_maria_schema",
   timestamps: false
 });

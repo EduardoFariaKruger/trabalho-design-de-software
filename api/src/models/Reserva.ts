@@ -1,8 +1,8 @@
 import { DataTypes } from "sequelize";
-import sequelize from "../config/database.js";
-import Cliente from "./Cliente.js";
-import Espaco from "./Espaco.js";
-import ADM from "./ADM.js";
+import sequelize from "../database";
+import Cliente from "./Cliente";
+import Espaco from "./Espaco";
+import ADM from "./ADM";
 
 const Reserva = sequelize.define("Reserva", {
   id_reserva: {
@@ -27,7 +27,7 @@ const Reserva = sequelize.define("Reserva", {
     type: DataTypes.INTEGER
   }
 }, {
-  tableName: "Reserva",
+  tableName: "reserva",
   schema: "dona_maria_schema",
   timestamps: false
 });

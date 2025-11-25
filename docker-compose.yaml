@@ -3,21 +3,20 @@ services:
     image: postgres:16
     container_name: cantinho_dona_maria_db
     restart: always
+
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: dona_maria_123
       POSTGRES_DB: cantinho_dona_maria
-    
-    ports: #map routing, tem que adicionar a do front e do back depois
-        #coloquei pra mapear pra 5433 pq eu ja tenho um bd rodando na 5432 no host local
+
+    ports:
       - "5433:5432"
-    
+
     volumes:
-      #volume pra não gerar dor de cabeça depois com debugging
       - dados_postgres:/var/lib/postgresql/data
 
-      #inicializa o banco, vide ademir
-      - ./dona_maria_schema.sql:/docker-entrypoint-initdb.d/dona_maria_schema.sql
+      # Rode os arquivos em ordem alfabética:
+      - ./schema_dona_maria.sql:/docker-entrypoint-initdb.d/01_schema_dona_maria.sql
 
 volumes:
   dados_postgres:

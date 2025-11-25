@@ -3,6 +3,12 @@ import sequelize from "./database";
 import swaggerUi from "swagger-ui-express";
 import YAML from "yamljs";
 
+import ADMRoutes from "./routes/adminController";
+import ClientRoutes from "./routes/clientController" 
+import EspacoRoutes from "./routes/espacoController";
+import ReservaRoutes from "./routes/reservaController" 
+import PagamentoRoutes from "./routes/pagamentoController";
+
 
 const app = express();
 
@@ -11,15 +17,21 @@ app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Middleware for JSON parsing
 app.use(express.json());
+app.use("/adm", ADMRoutes);
+app.use("/clients", ClientRoutes);
+app.use("/espaco", EspacoRoutes);
+app.use("/reserva", ReservaRoutes);
+app.use("/pagamento", PagamentoRoutes);
 
 // Test database connection
+
 sequelize
   .authenticate()
   .then(() => console.log("Database successfully connected"))
   .catch((err) => console.error("Database connection error:", err));
 
-// Aqui a gente 
-//app.use("/locations", locationRoutes);
+
+
 
 
 app.get("/", (_req, res) => {

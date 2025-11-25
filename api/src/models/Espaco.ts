@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import sequelize from "../config/database.js";
+import sequelize from "../database";
 
 const Espaco = sequelize.define("Espaco", {
   id_espaco: {
@@ -24,11 +24,12 @@ const Espaco = sequelize.define("Espaco", {
   tipo: {
     type: DataTypes.TEXT
   },
-  diasDisponiveis: {
+  diasindisponiveis: {
+    field: "diasindisponiveis",  // nome da coluna real no banco
     type: DataTypes.ARRAY(DataTypes.DATEONLY)
   }
 }, {
-  tableName: "Espaco",
+  tableName: "espaco",
   schema: "dona_maria_schema",
   timestamps: false
 });

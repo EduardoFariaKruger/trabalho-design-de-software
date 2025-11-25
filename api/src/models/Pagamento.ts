@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
-import sequelize from "../config/database.js";
-import Reserva from "./Reserva.js";
+import sequelize from "../database";
+import Reserva from "./Reserva";
 
 const Pagamento = sequelize.define("Pagamento", {
   id_pagamento: {
@@ -8,15 +8,15 @@ const Pagamento = sequelize.define("Pagamento", {
     primaryKey: true,
     autoIncrement: true
   },
-  valorTotal: {
+  valortotal: {
     type: DataTypes.FLOAT,
     allowNull: false
   },
-  valorPago: {
+  valorpago: {
     type: DataTypes.FLOAT,
     allowNull: false
   },
-  tipoPagamento: {
+  tipopagamento: {
     type: DataTypes.TEXT
   },
   id_reserva: {
@@ -25,7 +25,7 @@ const Pagamento = sequelize.define("Pagamento", {
     unique: true
   }
 }, {
-  tableName: "Pagamento",
+  tableName: "pagamento",
   schema: "dona_maria_schema",
   timestamps: false
 });
