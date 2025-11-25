@@ -18,6 +18,22 @@ services:
       # Rode os arquivos em ordem alfabética:
       - ./schema_dona_maria.sql:/docker-entrypoint-initdb.d/01_schema_dona_maria.sql
 
+  api:
+    build: ./api
+    container_name: cantinho_dona_maria_api
+    restart: always
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: dona_maria_123
+      DB_NAME: cantinho_dona_maria
+      DB_SCHEMA: dona_maria_schema
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+
 volumes:
   dados_postgres:
     driver: local

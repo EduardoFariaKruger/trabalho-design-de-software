@@ -1,23 +1,39 @@
-# Usa uma imagem leve e compatível com Raspberry Pi (ARM)
-FROM node:18-alpine
+# =============================
+# Stage 1: Build TypeScript
+# =============================
+FROM node:20-alpine AS build
 
-# Define o diretório de trabalho
+# Diretório de trabalho dentro do container
 WORKDIR /app
 
-# Copia apenas os arquivos de dependência
+# Copia package.json e package-lock.json (ou yarn.lock) primeiro
 COPY package*.json ./
 
-COPY . .
-# Instala dependências de produção e desenvolvimento (precisa do typescript para build)
+# Instala dependências
 RUN npm install
 
-# Copia o restante do código da aplicação
+# Copia todo o código-fonte
+COPY . .
 
-# Compila o TypeScript para JavaScript
+# Compila TypeScript para JavaScript
 RUN npm run build
 
-# Expõe a porta da API
+# =============================
+# Stage 2: Production
+# =============================
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Copia apenas os arquivos necessários da build
+COPY package*.json ./
+COPY --from=build /app/dist ./dist
+
+# Instala apenas dependências de produção
+RUN npm install --omit=dev
+
+# Expõe a porta que seu app usa
 EXPOSE 3000
 
-# Comando de inicialização
+# Comando para rodar a API
 CMD ["npm", "start"]

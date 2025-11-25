@@ -13,13 +13,14 @@ const ADM_TABLE = "ADM";
 ================================ */
 router.post("/create", async (req: Request, res: Response) => {
   try {
-    const { nome, cpf, dataNasc } = req.body;
+    const { nome, cpf, datanasc } = req.body;
 
     if (!nome || !cpf) {
       return res.status(400).json({ error: "nome and cpf are required" });
     }
 
-    const adm = await ADM.create({ nome, cpf, dataNasc });
+	const adm = await ADM.create({ nome, cpf, datanasc });
+
 
     return res.status(201).json(adm);
   } catch (error) {
@@ -89,7 +90,7 @@ router.get("getOne/:id", async (req: Request, res: Response) => {
 router.put("update/:id", async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const { nome, cpf, dataNasc } = req.body;
+    const { nome, cpf, datanasc } = req.body;
 
     const adm = await ADM.findByPk(id);
 
@@ -97,7 +98,7 @@ router.put("update/:id", async (req: Request, res: Response) => {
       return res.status(404).json({ error: "ADM not found" });
     }
 
-    await adm.update({ nome, cpf, dataNasc });
+    await adm.update({ nome, cpf, datanasc });
 
     res.status(200).json(adm);
   } catch (error) {

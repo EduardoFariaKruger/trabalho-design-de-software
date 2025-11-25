@@ -8,13 +8,13 @@ const router = Router();
 ================================ */
 router.post("/create", async (req: Request, res: Response) => {
   try {
-    const { nome, cpf, dataNasc } = req.body;
+    const { nome, cpf, datanasc } = req.body;
 
     if (!nome || !cpf) {
       return res.status(400).json({ error: "nome and cpf are required" });
     }
 
-    const cliente = await Cliente.create({ nome, cpf, dataNasc });
+    const cliente = await Cliente.create({ nome, cpf, datanasc });
 
     return res.status(201).json(cliente);
   } catch (error) {
@@ -73,7 +73,7 @@ router.get("getOne/:id", async (req: Request, res: Response) => {
 ================================ */
 router.put("update/:id", async (req: Request, res: Response) => {
   try {
-    const { nome, cpf, dataNasc } = req.body;
+    const { nome, cpf, datanasc } = req.body;
     const { id } = req.params;
 
     const cliente = await Cliente.findByPk(id);
@@ -82,7 +82,7 @@ router.put("update/:id", async (req: Request, res: Response) => {
       return res.status(404).json({ error: "Cliente not found" });
     }
 
-    await cliente.update({ nome, cpf, dataNasc });
+    await cliente.update({ nome, cpf, datanasc });
 
     return res.status(200).json(cliente);
   } catch (error) {

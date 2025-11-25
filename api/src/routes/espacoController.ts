@@ -13,7 +13,7 @@ const ESPACO_TABLE = "espaco";
 ================================ */
 router.post("/create", async (req: Request, res: Response) => {
   try {
-    const { nome, descricao, capacidade, preco, tipo, diasDisponiveis } = req.body;
+    const { nome, descricao, capacidade, preco, tipo, diasindisponiveis } = req.body;
 
     if (!capacidade || !preco) {
       return res.status(400).json({ error: "capacidade and preco are required" });
@@ -25,7 +25,7 @@ router.post("/create", async (req: Request, res: Response) => {
       capacidade,
       preco,
       tipo,
-      diasDisponiveis,
+      diasindisponiveis,
     });
 
     return res.status(201).json(espaco);
@@ -93,7 +93,7 @@ router.get("/getOne/:id", async (req: Request, res: Response) => {
 ================================ */
 router.put("/update/:id", async (req: Request, res: Response) => {
   try {
-    const { nome, descricao, capacidade, preco, tipo, diasDisponiveis } = req.body;
+    const { nome, descricao, capacidade, preco, tipo, diasindisponiveis } = req.body;
 
     const espaco = await Espaco.findByPk(req.params.id);
 
@@ -107,7 +107,7 @@ router.put("/update/:id", async (req: Request, res: Response) => {
       capacidade,
       preco,
       tipo,
-      diasDisponiveis,
+      diasindisponiveis,
     });
 
     res.status(200).json(espaco);
