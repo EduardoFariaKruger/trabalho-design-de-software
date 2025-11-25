@@ -1,7 +1,9 @@
 import express from "express";
 import sequelize from "./database";
 import swaggerUi from "swagger-ui-express";
-import YAML from "yamljs";
+import yaml from "js-yaml";
+import fs from 'fs';
+
 
 import ADMRoutes from "./routes/adminController";
 import ClientRoutes from "./routes/clientController" 
@@ -12,8 +14,11 @@ import PagamentoRoutes from "./routes/pagamentoController";
 
 const app = express();
 
-const swaggerDocument = YAML.load("swagger.yaml");
+const swaggerDocument = yaml.load(fs.readFileSync("swagger.yaml", "utf8"));
+
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+console.log(swaggerDocument);
 
 // Middleware for JSON parsing
 app.use(express.json());
