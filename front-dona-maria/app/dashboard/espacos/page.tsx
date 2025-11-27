@@ -1,6 +1,6 @@
 // app/dashboard/espacos/page.tsx
 'use client'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import EspacoForm from '@/components/EspacoForm';
 
 interface Espaco {
@@ -47,6 +47,30 @@ export default function EspacosPage() {
       setEspacos(espacos.filter(e => e.id_espaco !== id));
     }
   };
+  useEffect(() => {
+    async function testarRotaADM() {
+      try {
+        const res = await fetch('http://localhost:3000/adm/all', {
+          method: "GET",
+        });
+  
+        console.log("Status da rota /adm:", res.status);
+  
+        if (!res.ok) {
+          console.error("Erro na requisição:", res.statusText);
+          return;
+        }
+  
+        const data = await res.json();
+        console.log("Resposta da rota /adm:", data);
+  
+      } catch (err) {
+        console.error("Erro ao conectar com /adm:", err);
+      }
+    }
+  
+    testarRotaADM();
+  }, []);
 
   return (
     <div>

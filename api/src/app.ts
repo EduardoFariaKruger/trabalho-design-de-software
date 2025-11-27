@@ -10,10 +10,21 @@ import ClienteRoutes from "./routes/clienteController"
 import EspacoRoutes from "./routes/espacoController";
 import ReservaRoutes from "./routes/reservaController" 
 import PagamentoRoutes from "./routes/pagamentoController";
+import cors from "cors";
 
 
 const app = express();
 
+
+// Libera todas as origens (mais simples)
+app.use(cors());
+
+// ou para liberar só o front-end:
+app.use(cors({
+  origin: "http://localhost:4000",   // seu frontend
+  methods: "GET,POST,PUT,DELETE",
+  credentials: true
+}));
 
 const swaggerPath = path.join(process.cwd(), "swagger.yaml");
 const swaggerDocument = yaml.load(fs.readFileSync(swaggerPath, "utf8")) as Record<string, any>;
