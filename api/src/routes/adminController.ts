@@ -11,7 +11,7 @@ const ADM_TABLE = "ADM";
 /* ================================
    CREATE – POST /adm/create
 ================================ */
-router.post("/create", async (req: Request, res: Response) => {
+router.post("/adm", async (req: Request, res: Response) => {
   try {
     const { nome, cpf, datanasc } = req.body;
 
@@ -33,9 +33,9 @@ router.post("/create", async (req: Request, res: Response) => {
 });
 
 /* ================================
-   READ ALL – GET /adm/all
+   READ ALL – GET /adm
 ================================ */
-router.get("/all", async (_req: Request, res: Response) => {
+router.get("/adm", async (_req: Request, res: Response) => {
   try {
     const query = `
       SELECT *
@@ -64,7 +64,7 @@ router.get("/all", async (_req: Request, res: Response) => {
 /* ================================
    READ ONE – GET /adm/:id
 ================================ */
-router.get("getOne/:id", async (req: Request, res: Response) => {
+router.get("/adm/:id", async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
@@ -87,7 +87,7 @@ router.get("getOne/:id", async (req: Request, res: Response) => {
 /* ================================
    UPDATE – PUT /adm/:id
 ================================ */
-router.put("update/:id", async (req: Request, res: Response) => {
+router.put("/adm/:id", async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const { nome, cpf, datanasc } = req.body;
@@ -113,7 +113,7 @@ router.put("update/:id", async (req: Request, res: Response) => {
 /* ================================
    DELETE – DELETE /adm/:id
 ================================ */
-router.delete("delete/:id", async (req: Request, res: Response) => {
+router.delete("/adm/:id", async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 

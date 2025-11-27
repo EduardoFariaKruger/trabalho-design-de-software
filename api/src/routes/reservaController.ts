@@ -10,7 +10,7 @@ const router = express.Router();
    LISTAR TODAS AS RESERVAS
    GET /reservas
 ============================================================ */
-router.get("/all", async (req, res) => {
+router.get("/reservas", async (req, res) => {
   try {
     const reservas = await Reserva.findAll({
       include: [
@@ -26,7 +26,7 @@ router.get("/all", async (req, res) => {
         self: { href: `/reservas/${r.id_reserva}` },
         cliente: { href: `/clientes/${r.id_cliente}` },
         espaco: { href: `/espacos/${r.id_espaco}` },
-        adm: r.id_adm ? { href: `/adms/${r.id_adm}` } : null
+        adm: r.id_adm ? { href: `/adm/${r.id_adm}` } : null
       }
     }));
 
@@ -60,7 +60,7 @@ router.get("/reservas/:id", async (req, res) => {
         all: { href: "/reservas" },
         cliente: { href: `/clientes/${reserva.id_cliente}` },
         espaco: { href: `/espacos/${reserva.id_espaco}` },
-        adm: reserva.id_adm ? { href: `/adms/${reserva.id_adm}` } : null
+        adm: reserva.id_adm ? { href: `/adm/${reserva.id_adm}` } : null
       }
     });
   } catch (err) {

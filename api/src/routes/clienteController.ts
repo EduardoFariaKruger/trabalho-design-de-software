@@ -4,9 +4,9 @@ import Cliente from "../models/Cliente";
 const router = Router();
 
 /* ================================
-   CREATE – POST /clientes/create
+   CREATE – POST /clientes
 ================================ */
-router.post("/create", async (req: Request, res: Response) => {
+router.post("/clientes", async (req: Request, res: Response) => {
   try {
     const { nome, cpf, datanasc } = req.body;
 
@@ -27,9 +27,9 @@ router.post("/create", async (req: Request, res: Response) => {
 });
 
 /* ================================
-   READ ALL – GET /clientes/all
+   READ ALL – GET /clientes
 ================================ */
-router.get("/all", async (_req: Request, res: Response) => {
+router.get("/clientes", async (_req: Request, res: Response) => {
   try {
     const clientes = await Cliente.findAll();
 
@@ -50,7 +50,7 @@ router.get("/all", async (_req: Request, res: Response) => {
 /* ================================
    READ ONE – GET /clientes/:id
 ================================ */
-router.get("getOne/:id", async (req: Request, res: Response) => {
+router.get("/clientes/:id", async (req: Request, res: Response) => {
   try {
     const cliente = await Cliente.findByPk(req.params.id);
 
@@ -71,7 +71,7 @@ router.get("getOne/:id", async (req: Request, res: Response) => {
 /* ================================
    UPDATE – PUT /clientes/:id
 ================================ */
-router.put("update/:id", async (req: Request, res: Response) => {
+router.put("/clientes/:id", async (req: Request, res: Response) => {
   try {
     const { nome, cpf, datanasc } = req.body;
     const { id } = req.params;
@@ -97,7 +97,7 @@ router.put("update/:id", async (req: Request, res: Response) => {
 /* ================================
    DELETE – DELETE /clientes/:id
 ================================ */
-router.delete("delete/:id", async (req: Request, res: Response) => {
+router.delete("/clientes/:id", async (req: Request, res: Response) => {
   try {
     const cliente = await Cliente.findByPk(req.params.id);
 

@@ -9,9 +9,9 @@ const ESPACO_SCHEMA = "dona_maria_schema";
 const ESPACO_TABLE = "espaco";
 
 /* ================================
-   CREATE – POST /espacos/create
+   CREATE – POST /espacos
 ================================ */
-router.post("/create", async (req: Request, res: Response) => {
+router.post("/espacos", async (req: Request, res: Response) => {
   try {
     const { nome, descricao, capacidade, preco, tipo, diasindisponiveis } = req.body;
 
@@ -38,10 +38,10 @@ router.post("/create", async (req: Request, res: Response) => {
   }
 });
 
-/* ================================
-   READ ALL – GET /espacos/all
+/* ===============================
+   READ ALL – GET /espacos
 ================================ */
-router.get("/all", async (_req: Request, res: Response) => {
+router.get("/espacos", async (_req: Request, res: Response) => {
   try {
     const query = `
       SELECT *
@@ -68,9 +68,9 @@ router.get("/all", async (_req: Request, res: Response) => {
 });
 
 /* ================================
-   READ ONE – GET /espacos/getOne/:id
+   READ ONE – GET /espacos/:id
 ================================ */
-router.get("/getOne/:id", async (req: Request, res: Response) => {
+router.get("/espacos/:id", async (req: Request, res: Response) => {
   try {
     const espaco = await Espaco.findByPk(req.params.id);
 
@@ -89,9 +89,9 @@ router.get("/getOne/:id", async (req: Request, res: Response) => {
 });
 
 /* ================================
-   UPDATE – PUT /espacos/update/:id
+   UPDATE – PUT /espacos/:id
 ================================ */
-router.put("/update/:id", async (req: Request, res: Response) => {
+router.put("/espacos/:id", async (req: Request, res: Response) => {
   try {
     const { nome, descricao, capacidade, preco, tipo, diasindisponiveis } = req.body;
 
@@ -121,9 +121,9 @@ router.put("/update/:id", async (req: Request, res: Response) => {
 });
 
 /* ================================
-   DELETE – DELETE /espacos/delete/:id
+   DELETE – DELETE /espacos/:id
 ================================ */
-router.delete("/delete/:id", async (req: Request, res: Response) => {
+router.delete("/espacos/:id", async (req: Request, res: Response) => {
   try {
     const espaco = await Espaco.findByPk(req.params.id);
 

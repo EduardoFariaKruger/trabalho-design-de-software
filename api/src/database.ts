@@ -12,7 +12,7 @@ const sequelize = new Sequelize(
     port: Number(process.env.DB_PORT),
     dialect: "postgres",
     logging: false,
-    schema: process.env.DB_SCHEMA  // 👈 ESSA é a config correta
+    schema: process.env.DB_SCHEMA  
   }
 );
 

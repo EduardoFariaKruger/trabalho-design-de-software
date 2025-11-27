@@ -20,7 +20,18 @@ tags:
 
 paths:
 
-  /adm/create:
+  /adm:
+    get:
+      tags:
+        - ADM
+      summary: Listar todos os ADMs
+      responses:
+        '200':
+          description: Lista de ADMs
+        '404':
+          description: Nenhum ADM encontrado
+        '500':
+          description: Erro interno do servidor
     post:
       tags:
         - ADM
@@ -53,20 +64,7 @@ paths:
         '500':
           description: Erro interno do servidor
 
-  /adm/all:
-    get:
-      tags:
-        - ADM
-      summary: Listar todos os ADMs
-      responses:
-        '200':
-          description: Lista de ADMs
-        '404':
-          description: Nenhum ADM encontrado
-        '500':
-          description: Erro interno do servidor
-
-  /adm/getOne/{id}:
+  /adm/{id}:
     get:
       tags:
         - ADM
@@ -85,8 +83,6 @@ paths:
           description: ADM não encontrado
         '500':
           description: Erro interno do servidor
-
-  /adm/update/{id}:
     put:
       tags:
         - ADM
@@ -119,8 +115,6 @@ paths:
           description: ADM não encontrado
         '500':
           description: Erro interno do servidor
-
-  /adm/delete/{id}:
     delete:
       tags:
         - ADM
@@ -143,7 +137,18 @@ paths:
 # -------------------------
 # Cliente
 # -------------------------
-  /clients/create:
+  /clientes:
+    get:
+      tags:
+        - Cliente
+      summary: Listar todos os clientes
+      responses:
+        '200':
+          description: Lista de clientes
+        '404':
+          description: Nenhum cliente encontrado
+        '500':
+          description: Erro interno do servidor
     post:
       tags:
         - Cliente
@@ -176,20 +181,7 @@ paths:
         '500':
           description: Erro interno do servidor
 
-  /clients/all:
-    get:
-      tags:
-        - Cliente
-      summary: Listar todos os clientes
-      responses:
-        '200':
-          description: Lista de clientes
-        '404':
-          description: Nenhum cliente encontrado
-        '500':
-          description: Erro interno do servidor
-
-  /clients/getOne/{id}:
+  /clientes/{id}:
     get:
       tags:
         - Cliente
@@ -208,8 +200,6 @@ paths:
           description: Cliente não encontrado
         '500':
           description: Erro interno do servidor
-
-  /clients/update/{id}:
     put:
       tags:
         - Cliente
@@ -242,8 +232,6 @@ paths:
           description: Cliente não encontrado
         '500':
           description: Erro interno do servidor
-
-  /clients/delete/{id}:
     delete:
       tags:
         - Cliente
@@ -266,7 +254,7 @@ paths:
 # -------------------------
 # Espaço
 # -------------------------
-  /espaco/create:
+  /espacos:
     post:
       tags:
         - Espaço
@@ -303,8 +291,6 @@ paths:
           description: Requisição inválida
         '500':
           description: Erro interno do servidor
-
-  /espaco/all:
     get:
       tags:
         - Espaço
@@ -317,7 +303,7 @@ paths:
         '500':
           description: Erro interno do servidor
 
-  /espaco/getOne/{id}:
+  /espacos/{id}:
     get:
       tags:
         - Espaço
@@ -336,8 +322,6 @@ paths:
           description: Espaço não encontrado
         '500':
           description: Erro interno do servidor
-
-  /espaco/update/{id}:
     put:
       tags:
         - Espaço
@@ -378,8 +362,6 @@ paths:
           description: Espaço não encontrado
         '500':
           description: Erro interno do servidor
-
-  /espaco/delete/{id}:
     delete:
       tags:
         - Espaço

@@ -6,7 +6,7 @@ import fs from 'fs';
 import path from "path";
 
 import ADMRoutes from "./routes/adminController";
-import ClientRoutes from "./routes/clientController" 
+import ClienteRoutes from "./routes/clienteController" 
 import EspacoRoutes from "./routes/espacoController";
 import ReservaRoutes from "./routes/reservaController" 
 import PagamentoRoutes from "./routes/pagamentoController";
@@ -26,10 +26,10 @@ console.log(swaggerDocument);
 // Middleware for JSON parsing
 app.use(express.json());
 app.use("/adm", ADMRoutes);
-app.use("/clients", ClientRoutes);
-app.use("/espaco", EspacoRoutes);
-app.use("/reserva", ReservaRoutes);
-app.use("/pagamento", PagamentoRoutes);
+app.use("/clientes", ClienteRoutes);
+app.use("/espacos", EspacoRoutes);
+app.use("/reservas", ReservaRoutes);
+app.use("/pagamentos", PagamentoRoutes);
 
 // Test database connection
 

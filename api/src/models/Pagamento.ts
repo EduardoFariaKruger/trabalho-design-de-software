@@ -5,18 +5,18 @@ import Reserva from "./Reserva";
 // 1️⃣ Interface com os atributos da tabela
 interface PagamentoAttributes {
   id_pagamento: number;
-  valortotal: number;
-  valorpago: number;
-  tipopagamento?: string;
+  valorTotal: number;
+  valorPago: number;
+  tipoPagamento?: string;
   id_reserva: number;
 }
 
 // 2️⃣ Classe que estende Model
 class Pagamento extends Model<PagamentoAttributes> implements PagamentoAttributes {
   public id_pagamento!: number;
-  public valortotal!: number;
-  public valorpago!: number;
-  public tipopagamento?: string;
+  public valorTotal!: number;
+  public valorPago!: number;
+  public tipoPagamento?: string;
   public id_reserva!: number;
 }
 
@@ -28,15 +28,15 @@ Pagamento.init(
       primaryKey: true,
       autoIncrement: true
     },
-    valortotal: {
+    valorTotal: {
       type: DataTypes.FLOAT,
       allowNull: false
     },
-    valorpago: {
+    valorPago: {
       type: DataTypes.FLOAT,
       allowNull: false
     },
-    tipopagamento: {
+    tipoPagamento: {
       type: DataTypes.TEXT
     },
     id_reserva: {
