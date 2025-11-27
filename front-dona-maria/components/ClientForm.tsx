@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react';
 
-interface Cliente {
+export interface ClienteForm {
   id_cliente: number | null; // Pode ser null para novos clientes
   nome: string;
   cpf: number;
@@ -10,9 +10,9 @@ interface Cliente {
 
 // Props esperadas pelo componente
 interface ClientFormProps {
-  client: Cliente | null;
+  client: ClienteForm | null;
   onClose: () => void;
-  onSave: (data: Cliente) => void; // Função para enviar dados ao componente pai/backend
+  onSave: (data: ClienteForm) => Promise<void>; // Função para enviar dados ao componente pai/backend
 }
 
 export default function ClientForm({ client, onClose, onSave }: ClientFormProps) {
@@ -38,7 +38,7 @@ export default function ClientForm({ client, onClose, onSave }: ClientFormProps)
       return;
     }
 
-    const dataToSave: Cliente = {
+    const dataToSave: ClienteForm = {
         // Se estiver editando, envia o ID, senão envia null ou undefined
         id_cliente: client?.id_cliente || null, 
         nome: formData.nome,
@@ -52,7 +52,6 @@ export default function ClientForm({ client, onClose, onSave }: ClientFormProps)
     // O onClose() será chamado dentro do onSave na página pai, após o sucesso do backend
   };
 
-  // --- Estrutura do Modal (mantida) ---
   return (
     <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50 flex justify-center items-center">
       <div className="relative bg-white p-8 rounded-lg shadow-2xl w-full max-w-lg mx-auto">

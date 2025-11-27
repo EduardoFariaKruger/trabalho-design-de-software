@@ -2,7 +2,8 @@
 import { useState } from 'react';
 import { format } from 'date-fns';
 import ReservaForm from '@/components/ReservaForm';
-
+import { api } from "@/app/lib/http";
+import { ENDPOINTS } from "@/app/lib/api";
 
 interface ReservaExibicao {
   id_reserva: number;
@@ -45,11 +46,59 @@ export default function ReservasPage() {
     setIsModalOpen(true);
   };
 
-  const handleSave = (data: ReservaFormaBase) => {
-      // ⚠️ SUBSTITUIR PELA SUA CHAMADA DE API (POST/PUT)
-      alert(`Dados de Reserva e Pagamento enviados ao backend! ID Espaço: ${data.id_espaco}, Valor Pago: R$ ${data.valorPago}`);
-      // Em caso de sucesso: Fechar modal e recarregar a lista (ou atualizar o estado)
-  }
+  // const handleSave = (data: ReservaFormaBase) => {
+  //     // ⚠️ SUBSTITUIR PELA SUA CHAMADA DE API (POST/PUT)
+  //     alert(`Dados de Reserva e Pagamento enviados ao backend! ID Espaço: ${data.id_espaco}, Valor Pago: R$ ${data.valorPago}`);
+  //     // Em caso de sucesso: Fechar modal e recarregar a lista (ou atualizar o estado)
+  // }
+
+  const handleSave = async (data: ReservaFormaBase) => {
+    try {
+      let reservaId = data.id_reserva;
+
+      if (reservaId) {
+        // Atualiza reserva
+        await api.put(`${ENDPOINTS.reservas}/${reservaId}`, {
+          data: data.data,
+          id_cliente: data.id_cliente,
+          id_espaco: data.id_espaco,
+          id_adm: data.id_adm,
+        });
+
+        // Atualiza pagamento
+        await api.put(`${ENDPOINTS.pagamentos}/${reservaId}`, {
+          valorPago: data.valorPago,
+          valorTotal: data.valorTotal,
+          tipoPagamento: data.tipoPagamento,
+        });
+
+        console.log("Reserva e pagamento atualizados com sucesso!");
+      } else {
+        // Cria reserva
+        const reservaResponse = await api.post(ENDPOINTS.reservas, {
+          data: data.data,
+          id_cliente: data.id_cliente,
+          id_espaco: data.id_espaco,
+          id_adm: data.id_adm,
+        });
+
+        reservaId = reservaResponse.data.id_reserva;
+
+        // Cria pagamento
+        await api.post(ENDPOINTS.pagamentos, {
+          id_reserva: reservaId,
+          valorPago: data.valorPago,
+          valorTotal: data.valorTotal,
+          tipoPagamento: data.tipoPagamento,
+        });
+
+        console.log("Reserva e pagamento criados com sucesso!");
+      }
+    } catch (error: any) {
+      console.error("Erro ao salvar reserva + pagamento:", error);
+      alert(`Erro ao salvar: ${error.response?.data?.message || error.message}`);
+    }
+  };
   
   const handleDelete = (id: number) => {
     if (confirm('Tem certeza que deseja cancelar esta reserva?')) {
