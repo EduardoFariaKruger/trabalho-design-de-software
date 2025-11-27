@@ -9,7 +9,7 @@ interface Espaco {
   capacidade: number;
   preco: number;
   tipo: string;
-  diasIndisponiveis: string[];
+  diasindisponiveis: string[] | null;
 }
 
 interface EspacoFormProps {
@@ -32,7 +32,7 @@ export default function EspacoForm({ espaco, onClose, onSave }: EspacoFormProps)
     capacidade: espaco?.capacidade.toString() || '',
     preco: espaco?.preco.toString() || '',
     tipo: espaco?.tipo || '',
-    diasIndisponiveisString: espaco?.diasIndisponiveis ? arrayToString(espaco.diasIndisponiveis) : '',
+    diasindisponiveisString: espaco?.diasindisponiveis ? arrayToString(espaco.diasindisponiveis) : '',
   });
 
   const isEditing = !!espaco;
@@ -57,7 +57,7 @@ export default function EspacoForm({ espaco, onClose, onSave }: EspacoFormProps)
         capacidade: parseInt(formData.capacidade, 10),
         preco: parseFloat(formData.preco),
         tipo: formData.tipo,
-        diasIndisponiveis: stringToArray(formData.diasIndisponiveisString), 
+        diasindisponiveis: stringToArray(formData.diasindisponiveisString), 
     };
     
     onSave(dataToSave);
@@ -107,12 +107,12 @@ export default function EspacoForm({ espaco, onClose, onSave }: EspacoFormProps)
           </div>
 
           <div>
-            <label htmlFor="diasIndisponiveisString" className="block text-sm font-medium text-gray-700">Dias Indisponíveis (YYYY-MM-DD)</label>
+            <label htmlFor="diasindisponiveisString" className="block text-sm font-medium text-gray-700">Dias Indisponíveis (YYYY-MM-DD)</label>
             <textarea
-              name="diasIndisponiveisString"
-              id="diasIndisponiveisString"
+              name="diasindisponiveisString"
+              id="diasindisponiveisString"
               rows={2}
-              value={formData.diasIndisponiveisString}
+              value={formData.diasindisponiveisString}
               onChange={handleChange}
               placeholder="Ex: 2025-12-01, 2025-12-02, 2025-12-05"
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500"

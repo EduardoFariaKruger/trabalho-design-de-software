@@ -8,7 +8,7 @@ const router = express.Router();
    LISTAR TODOS OS PAGAMENTOS
    GET /pagamentos
 ============================================================ */
-router.get("/pagamentos", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const pagamentos = await Pagamento.findAll({
       include: [{ model: Reserva }]
@@ -32,7 +32,7 @@ router.get("/pagamentos", async (req, res) => {
    OBTER UM PAGAMENTO ESPECÍFICO
    GET /pagamentos/:id
 ============================================================ */
-router.get("/pagamentos/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     const pagamento = await Pagamento.findByPk(req.params.id, {
       include: [{ model: Reserva }]
@@ -58,7 +58,7 @@ router.get("/pagamentos/:id", async (req, res) => {
    CRIAR PAGAMENTO
    POST /pagamentos
 ============================================================ */
-router.post("/pagamentos", async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const pagamento = await Pagamento.create(req.body);
 
@@ -78,7 +78,7 @@ router.post("/pagamentos", async (req, res) => {
    ATUALIZAR UM PAGAMENTO
    PUT /pagamentos/:id
 ============================================================ */
-router.put("/pagamentos/:id", async (req, res) => {
+router.put("/:id", async (req, res) => {
   try {
     const pagamento = await Pagamento.findByPk(req.params.id);
 
@@ -104,7 +104,7 @@ router.put("/pagamentos/:id", async (req, res) => {
    DELETAR UM PAGAMENTO
    DELETE /pagamentos/:id
 ============================================================ */
-router.delete("/pagamentos/:id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
     const rows = await Pagamento.destroy({
       where: { id_pagamento: req.params.id }

@@ -10,7 +10,7 @@ const router = express.Router();
    LISTAR TODAS AS RESERVAS
    GET /reservas
 ============================================================ */
-router.get("/reservas", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const reservas = await Reserva.findAll({
       include: [
@@ -40,7 +40,7 @@ router.get("/reservas", async (req, res) => {
    OBTER UMA RESERVA ESPECÍFICA
    GET /reservas/:id
 ============================================================ */
-router.get("/reservas/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     const reserva = await Reserva.findByPk(req.params.id, {
       include: [
@@ -72,7 +72,7 @@ router.get("/reservas/:id", async (req, res) => {
    CRIAR UMA RESERVA
    POST /reservas
 ============================================================ */
-router.post("/reservas", async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const reserva = await Reserva.create(req.body);
 
@@ -92,7 +92,7 @@ router.post("/reservas", async (req, res) => {
    ATUALIZAR RESERVA
    PUT /reservas/:id
 ============================================================ */
-router.put("/reservas/:id", async (req, res) => {
+router.put("/:id", async (req, res) => {
   try {
     const reserva = await Reserva.findByPk(req.params.id);
 
@@ -118,7 +118,7 @@ router.put("/reservas/:id", async (req, res) => {
    DELETAR UMA RESERVA
    DELETE /reservas/:id
 ============================================================ */
-router.delete("/reservas/:id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
     const rows = await Reserva.destroy({
       where: { id_reserva: req.params.id }

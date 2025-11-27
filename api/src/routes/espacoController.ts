@@ -11,7 +11,7 @@ const ESPACO_TABLE = "espaco";
 /* ================================
    CREATE – POST /espacos
 ================================ */
-router.post("/espacos", async (req: Request, res: Response) => {
+router.post("/", async (req: Request, res: Response) => {
   try {
     const { nome, descricao, capacidade, preco, tipo, diasindisponiveis } = req.body;
 
@@ -41,7 +41,7 @@ router.post("/espacos", async (req: Request, res: Response) => {
 /* ===============================
    READ ALL – GET /espacos
 ================================ */
-router.get("/espacos", async (_req: Request, res: Response) => {
+router.get("/", async (_req: Request, res: Response) => {
   try {
     const query = `
       SELECT *
@@ -49,13 +49,14 @@ router.get("/espacos", async (_req: Request, res: Response) => {
       ORDER BY id_espaco ASC;
     `;
 
-    const espacos = await sequelize.query(query, {
+    let espacos: any[] = await sequelize.query(query, {
       type: QueryTypes.SELECT,
     });
 
-    if (espacos.length === 0) {
-      return res.status(404).json({ error: "No Espaco records found" });
-    }
+    espacos = espacos.map(e => ({
+      ...e,
+      diasindisponiveis: e.diasindisponiveis ?? []
+    }));
 
     res.status(200).json(espacos);
   } catch (error) {
@@ -70,13 +71,15 @@ router.get("/espacos", async (_req: Request, res: Response) => {
 /* ================================
    READ ONE – GET /espacos/:id
 ================================ */
-router.get("/espacos/:id", async (req: Request, res: Response) => {
+router.get("/:id", async (req: Request, res: Response) => {
   try {
-    const espaco = await Espaco.findByPk(req.params.id);
+    const espaco: any = await Espaco.findByPk(req.params.id);
 
     if (!espaco) {
       return res.status(404).json({ error: "Espaco not found" });
     }
+
+    espaco.diasindisponiveis = espaco.diasindisponiveis ?? [];
 
     res.status(200).json(espaco);
   } catch (error) {
@@ -91,7 +94,7 @@ router.get("/espacos/:id", async (req: Request, res: Response) => {
 /* ================================
    UPDATE – PUT /espacos/:id
 ================================ */
-router.put("/espacos/:id", async (req: Request, res: Response) => {
+router.put("/:id", async (req: Request, res: Response) => {
   try {
     const { nome, descricao, capacidade, preco, tipo, diasindisponiveis } = req.body;
 
@@ -123,7 +126,7 @@ router.put("/espacos/:id", async (req: Request, res: Response) => {
 /* ================================
    DELETE – DELETE /espacos/:id
 ================================ */
-router.delete("/espacos/:id", async (req: Request, res: Response) => {
+router.delete("/:id", async (req: Request, res: Response) => {
   try {
     const espaco = await Espaco.findByPk(req.params.id);
 
