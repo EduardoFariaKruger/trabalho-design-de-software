@@ -33,7 +33,17 @@ services:
       - "3000:3000"
     depends_on:
       - db
-
+  app:
+    build: ./front-dona-maria
+    container_name: front-end_dona_maria
+    restart: always
+    environment:
+      NEXT_PUBLIC_API_URL: "http://localhost:3000"
+    ports:
+      - "4000:4000"
+    depends_on:
+      - api
+    
 volumes:
   dados_postgres:
     driver: local
