@@ -6,7 +6,7 @@ const router = Router();
 /* ================================
    CREATE – POST /clientes
 ================================ */
-router.post("/clientes", async (req: Request, res: Response) => {
+router.post("/", async (req: Request, res: Response) => {
   try {
     const { nome, cpf, datanasc } = req.body;
 
@@ -29,7 +29,7 @@ router.post("/clientes", async (req: Request, res: Response) => {
 /* ================================
    READ ALL – GET /clientes
 ================================ */
-router.get("/clientes", async (_req: Request, res: Response) => {
+router.get("/", async (_req: Request, res: Response) => {
   try {
     const clientes = await Cliente.findAll();
 
@@ -50,7 +50,7 @@ router.get("/clientes", async (_req: Request, res: Response) => {
 /* ================================
    READ ONE – GET /clientes/:id
 ================================ */
-router.get("/clientes/:id", async (req: Request, res: Response) => {
+router.get("/:id", async (req: Request, res: Response) => {
   try {
     const cliente = await Cliente.findByPk(req.params.id);
 
@@ -71,7 +71,7 @@ router.get("/clientes/:id", async (req: Request, res: Response) => {
 /* ================================
    UPDATE – PUT /clientes/:id
 ================================ */
-router.put("/clientes/:id", async (req: Request, res: Response) => {
+router.put("/:id", async (req: Request, res: Response) => {
   try {
     const { nome, cpf, datanasc } = req.body;
     const { id } = req.params;
@@ -97,7 +97,7 @@ router.put("/clientes/:id", async (req: Request, res: Response) => {
 /* ================================
    DELETE – DELETE /clientes/:id
 ================================ */
-router.delete("/clientes/:id", async (req: Request, res: Response) => {
+router.delete("/:id", async (req: Request, res: Response) => {
   try {
     const cliente = await Cliente.findByPk(req.params.id);
 

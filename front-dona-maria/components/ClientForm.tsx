@@ -5,7 +5,7 @@ export interface ClienteForm {
   id_cliente: number | null; // Pode ser null para novos clientes
   nome: string;
   cpf: number;
-  dataNasc: string;
+  datanasc: string;
 }
 
 // Props esperadas pelo componente
@@ -19,7 +19,7 @@ export default function ClientForm({ client, onClose, onSave }: ClientFormProps)
   const [formData, setFormData] = useState({
     nome: client?.nome || '',
     cpf: client?.cpf.toString() || '',
-    dataNasc: client?.dataNasc || '',
+    datanasc: client?.datanasc || '',
   });
 
   const isEditing = !!client;
@@ -33,7 +33,7 @@ export default function ClientForm({ client, onClose, onSave }: ClientFormProps)
     e.preventDefault();
 
     // 1. Validação
-    if (!formData.nome || !formData.cpf || !formData.dataNasc) {
+    if (!formData.nome || !formData.cpf || !formData.datanasc) {
       alert('Todos os campos são obrigatórios.');
       return;
     }
@@ -43,8 +43,9 @@ export default function ClientForm({ client, onClose, onSave }: ClientFormProps)
         id_cliente: client?.id_cliente || null, 
         nome: formData.nome,
         cpf: parseInt(formData.cpf, 10),
-        dataNasc: formData.dataNasc,
+        datanasc: formData.datanasc,
     };
+    console.log(dataToSave);
     
     // 2. Chama a função passada pelo pai (que fará a requisição ao backend)
     onSave(dataToSave);
@@ -92,12 +93,12 @@ export default function ClientForm({ client, onClose, onSave }: ClientFormProps)
 
           {/* Data de Nascimento */}
           <div>
-            <label htmlFor="dataNasc" className="block text-sm font-medium text-gray-700">Data de Nascimento</label>
+            <label htmlFor="datanasc" className="block text-sm font-medium text-gray-700">Data de Nascimento</label>
             <input
               type="date"
-              name="dataNasc"
-              id="dataNasc"
-              value={formData.dataNasc}
+              name="datanasc"
+              id="datanasc"
+              value={formData.datanasc}
               onChange={handleChange}
               required
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500"

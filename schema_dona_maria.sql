@@ -16,7 +16,7 @@ SET search_path TO dona_maria_schema;
 CREATE TABLE Cliente (
     id_cliente SERIAL PRIMARY KEY,
     nome TEXT NOT NULL,
-    cpf INTEGER UNIQUE NOT NULL,
+    cpf BIGINT UNIQUE NOT NULL,
     dataNasc DATE
 );
 

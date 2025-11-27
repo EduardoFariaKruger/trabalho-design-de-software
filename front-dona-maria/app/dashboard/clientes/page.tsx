@@ -9,13 +9,13 @@
 // //   id_cliente: number;
 // //   nome: string;
 // //   cpf: number;
-// //   dataNasc: string; // YYYY-MM-DD
+// //   datanasc: string; // YYYY-MM-DD
 // // }
 
 // // // 💡 Dados Mock (Simplificados, apenas para preencher a tela)
 // // const MOCK_CLIENTES: Cliente[] = [
-// //   { id_cliente: 1, nome: 'João da Silva', cpf: 12345678901, dataNasc: '1985-05-10' },
-// //   { id_cliente: 2, nome: 'Maria Oliveira', cpf: 98765432109, dataNasc: '1992-11-25' },
+// //   { id_cliente: 1, nome: 'João da Silva', cpf: 12345678901, datanasc: '1985-05-10' },
+// //   { id_cliente: 2, nome: 'Maria Oliveira', cpf: 98765432109, datanasc: '1992-11-25' },
 // // ];
 
 // // export default function ClientesPage() {
@@ -81,7 +81,7 @@
 // //                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{cliente.nome}</td>
 // //                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{cliente.cpf}</td>
 // //                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-// //                     {format(new Date(cliente.dataNasc), 'dd/MM/yyyy')}
+// //                     {format(new Date(cliente.datanasc), 'dd/MM/yyyy')}
 // //                   </td>
 // //                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
 // //                     <button
@@ -127,7 +127,7 @@ interface Cliente {
   id_cliente: number;
   nome: string;
   cpf: number;
-  dataNasc: string; // YYYY-MM-DD
+  datanasc: string; // YYYY-MM-DD
 }
 
 export default function ClientesPage() {
@@ -162,6 +162,7 @@ export default function ClientesPage() {
         console.log('Cliente atualizado com sucesso!');
       } else {
         // POST
+        console.log('Criando novo cliente:', data);
         const response = await api.post(ENDPOINTS.clientes, data);
         setClientes(prev => [response.data, ...prev]);
         console.log('Cliente criado com sucesso!');
@@ -214,7 +215,7 @@ export default function ClientesPage() {
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{cliente.nome}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{cliente.cpf}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {format(new Date(cliente.dataNasc), 'dd/MM/yyyy')}
+                  {format(new Date(cliente.datanasc), 'dd/MM/yyyy')}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                   <button
