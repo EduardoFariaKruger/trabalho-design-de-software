@@ -47,3 +47,9 @@ Servicos acessiveis em:
 API: http://localhost:3000
 
 Frontend: http://localhost:4000
+
+
+
+
+
+os arquivos SQL estão no diretório entry do postgres, então quando o docker sobe ele já sobe com o banco todo certinho com o DB, schemas, tabelas e registros já configurados
