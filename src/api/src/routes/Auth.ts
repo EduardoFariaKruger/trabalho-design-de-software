@@ -1,4 +1,3 @@
-// src/routes/auth.routes.ts (ou onde você armazena suas rotas)
 
 import { Router, Request, Response } from "express";
 import ADM from "../models/ADM";
