@@ -25,13 +25,10 @@ export default function ADMsPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedADM, setSelectedADM] = useState<ADMForma | null>(null);
 
-  // --- Funções de API ---
 
-  // Função para carregar ADMs
   const fetchADMs = useCallback(async () => {
     setLoading(true);
     try {
-      // 🟢 READ ALL – GET /adm
       const response = await api.get(ENDPOINTS.adms);
       setADMs(response.data);
     } catch (error) {
@@ -48,24 +45,18 @@ export default function ADMsPage() {
   }, [fetchADMs]);
 
 
-  // Salvar/editar ADM (Criação e Atualização)
   const handleADMOperation = async (data: ADMForma) => {
     try {
       if (data.id_adm) {
-        // 🟡 UPDATE – PUT /adm/:id
-        // Nota: O backend deve lidar com a senha vazia (deixando a senha antiga)
         const response = await api.put(`${ENDPOINTS.adms}/${data.id_adm}`, data);
         
-        // Atualiza a lista com o dado retornado pelo backend
         setADMs(prev =>
           prev.map(a => (a.id_adm === data.id_adm ? response.data : a))
         );
         console.log('ADM atualizado com sucesso!');
       } else {
-        // 🟢 CREATE – POST /adm/create
-        const response = await api.post(ENDPOINTS.adms, data); // Usando endpoint de criação
+        const response = await api.post(ENDPOINTS.adms, data); 
         
-        // Adiciona o novo ADM retornado pelo backend (com ID)
         setADMs(prev => [response.data, ...prev]);
         console.log('ADM criado com sucesso!');
       }
@@ -76,15 +67,12 @@ export default function ADMsPage() {
     }
   };
 
-  // Deletar ADM
   const handleDelete = async (id: number) => {
     if (!confirm('Tem certeza que deseja excluir este ADM?')) return; 
     
     try {
-      // 🔴 DELETE – DELETE /adm/:id
       await api.delete(`${ENDPOINTS.adms}/${id}`);
       
-      // Remove o ADM da lista
       setADMs(prev => prev.filter(a => a.id_adm !== id));
       console.log('ADM excluído com sucesso!');
     } catch (error) {
