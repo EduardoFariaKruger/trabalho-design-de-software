@@ -22,9 +22,8 @@ CREATE TABLE Cliente (
 
 CREATE TABLE adm (
     id_adm SERIAL PRIMARY KEY,
-    nome TEXT NOT NULL,
-    cpf INTEGER UNIQUE NOT NULL,
-    dataNasc DATE
+    login TEXT NOT NULL,
+    senha TEXT NOT NULL
 );
 
 -- CORREÇÃO: Adicionada vírgula entre 'descricao TEXT' e 'capacidade INTEGER NOT NULL'
@@ -78,3 +77,15 @@ ALTER DEFAULT PRIVILEGES FOR ROLE dona_maria IN SCHEMA dona_maria_schema
 
 ALTER DEFAULT PRIVILEGES FOR ROLE dona_maria IN SCHEMA dona_maria_schema  
     GRANT ALL ON SEQUENCES TO dona_maria;
+
+INSERT INTO adm (login, senha) VALUES ('dona-maria', '123456');
+
+INSERT INTO Cliente (nome, cpf, dataNasc) VALUES ('Fernando Gbur', 11111111111, '2003-03-03');
+INSERT INTO Cliente (nome, cpf, dataNasc) VALUES ('Eduardo Kruger', 22222222222, '2004-07-08');
+INSERT INTO Cliente (nome, cpf, dataNasc) VALUES ('Thalita Nascimento', 33333333333, '2003-05-22');
+
+INSERT INTO Espaco (nome, descricao, capacidade, preco, tipo, diasIndisponiveis)
+VALUES 
+('Salão de Festas Custo Benefício', 'Espaço amplo para festas e eventos.', 100, 500.00, 'Salão de Festas', NULL),
+('Churrasqueira', 'Área com churrasqueira para encontros.', 50, 300.00, 'Área Gourmet', NULL),
+('Piscina', 'Piscina para lazer e recreação.', 30, 200.00, 'Outro', NULL);

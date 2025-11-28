@@ -206,7 +206,6 @@ export default function ClientesPage() {
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nome</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">CPF</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nascimento</th>
-              <th className="relative px-6 py-3"><span className="sr-only">Ações</span></th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
@@ -215,7 +214,7 @@ export default function ClientesPage() {
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{cliente.nome}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{cliente.cpf}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {format(new Date(cliente.datanasc), 'dd/MM/yyyy')}
+                  {format(new Date(cliente.datanasc + 'T00:00:00'), 'dd/MM/yyyy')} 
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                   <button

@@ -2,29 +2,37 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { api } from '@/app/lib/http'
+import { ENDPOINTS } from '@/app/lib/api'
 
 export default function LoginForm() {
   const [login, setLogin] = useState('')
-  const [password, setPassword] = useState('')
+  const [senha, setSenha] = useState('')
   const [error, setError] = useState<string | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError(null)
-    
-    // 1. Lógica de Autenticação (Ainda não implementada)
-    // Em um projeto real, você faria uma chamada de API aqui:
-    // const res = await fetch('/api/login', { method: 'POST', body: JSON.stringify({ login, password }) })
-    
-    // Exemplo Simples (Simulação de sucesso):
-    if (login === 'dona-maria' && password === '123456') {
-        // 2. Redirecionamento em caso de sucesso
-        router.push('/dashboard') // Redireciona para a primeira tela após o login
-    } else {
-        // 3. Exibição de erro
-        setError('E-mail ou senha inválidos.')
+    setIsLoading(true)
+  
+    try {
+      const credentials = { login, senha };
+      
+      const response = await api.post(ENDPOINTS.auth, credentials);
+
+      console.log('Login efetuado com sucesso!', response.data);
+
+      router.push('/dashboard');
+    } catch (err: any) {
+      console.error('Erro ao efetuar login:', err);
+      const errorMessage = err.response?.data?.error || 'Login ou Senha incorretos.';
+      setError(errorMessage);
+    } finally {
+      setIsLoading(false);
     }
+
   }
 
   return (
@@ -45,14 +53,14 @@ export default function LoginForm() {
 
       {/* Campo Senha */}
       <div>
-        <label htmlFor="password" className="block text-sm font-medium text-gray-700">Senha</label>
+        <label htmlFor="senha" className="block text-sm font-medium text-gray-700">Senha</label>
         <input
-          id="password"
-          name="password"
-          type="password"
+          id="senha"
+          name="senha"
+          type="senha"
           required
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={senha}
+          onChange={(e) => setSenha(e.target.value)}
           className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700"
         />
       </div>

@@ -10,6 +10,7 @@ const navItems = [
   { href: '/dashboard/clientes', label: 'Clientes', icon: '👥' },
   { href: '/dashboard/reservas', label: 'Reservas', icon: '🗓️' },
   { href: '/dashboard/espacos', label: 'Espaços', icon: '📍' },
+  { href: '/dashboard/adms', label: 'Administradores', icon: '🔑' },
 ];
 
 export default function Sidebar() {
@@ -23,7 +24,6 @@ export default function Sidebar() {
         Seu Cantinho
       </div>
 
-      {/* Opções de Navegação */}
       <ul className="space-y-2">
         {navItems.map((item) => (
           <li key={item.href}>

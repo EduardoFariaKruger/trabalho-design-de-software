@@ -10,6 +10,7 @@ import ClienteRoutes from "./routes/clienteController"
 import EspacoRoutes from "./routes/espacoController";
 import ReservaRoutes from "./routes/reservaController" 
 import PagamentoRoutes from "./routes/pagamentoController";
+import auth from "./routes/Auth";
 import cors from "cors";
 
 
@@ -41,6 +42,7 @@ app.use("/clientes", ClienteRoutes);
 app.use("/espacos", EspacoRoutes);
 app.use("/reservas", ReservaRoutes);
 app.use("/pagamentos", PagamentoRoutes);
+app.use("/auth", auth);
 
 // Test database connection
 

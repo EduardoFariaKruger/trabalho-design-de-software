@@ -11,15 +11,15 @@ const ADM_TABLE = "ADM";
 /* ================================
    CREATE – POST /adm/create
 ================================ */
-router.post("/create", async (req: Request, res: Response) => {
+router.post("/", async (req: Request, res: Response) => {
   try {
-    const { nome, cpf, datanasc } = req.body;
+    const { login, senha } = req.body;
 
-    if (!nome || !cpf) {
-      return res.status(400).json({ error: "nome and cpf are required" });
+    if (!login || !senha) {
+      return res.status(400).json({ error: "login e senha são necessários para criação de um ADM" });
     }
 
-	const adm = await ADM.create({ nome, cpf, datanasc });
+	const adm = await ADM.create({ login, senha });
 
 
     return res.status(201).json(adm);
@@ -35,7 +35,7 @@ router.post("/create", async (req: Request, res: Response) => {
 /* ================================
    READ ALL – GET /adm
 ================================ */
-router.get("/all", async (_req: Request, res: Response) => {
+router.get("/", async (_req: Request, res: Response) => {
   try {
     const query = `
       SELECT *
@@ -64,7 +64,7 @@ router.get("/all", async (_req: Request, res: Response) => {
 /* ================================
    READ ONE – GET /adm/:id
 ================================ */
-router.get("/getById/:id", async (req: Request, res: Response) => {
+router.get("/:id", async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
@@ -87,10 +87,10 @@ router.get("/getById/:id", async (req: Request, res: Response) => {
 /* ================================
    UPDATE – PUT /adm/:id
 ================================ */
-router.put("/update/:id", async (req: Request, res: Response) => {
+router.put("/:id", async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const { nome, cpf, datanasc } = req.body;
+    const { login, senha } = req.body;
 
     const adm = await ADM.findByPk(id);
 
@@ -98,7 +98,7 @@ router.put("/update/:id", async (req: Request, res: Response) => {
       return res.status(404).json({ error: "ADM not found" });
     }
 
-    await adm.update({ nome, cpf, datanasc });
+    await adm.update({ login, senha });
 
     res.status(200).json(adm);
   } catch (error) {
@@ -113,7 +113,7 @@ router.put("/update/:id", async (req: Request, res: Response) => {
 /* ================================
    DELETE – DELETE /adm/:id
 ================================ */
-router.delete("/delete/:id", async (req: Request, res: Response) => {
+router.delete("/:id", async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 

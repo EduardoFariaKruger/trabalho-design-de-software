@@ -5,5 +5,6 @@ export const ENDPOINTS = {
   pagamentos: "/pagamentos",
   espacos: "/espacos",
   clientes: "/clientes",
-  adm: "/adm",
+  adms: "/adm",
+  auth: "/auth"
 };

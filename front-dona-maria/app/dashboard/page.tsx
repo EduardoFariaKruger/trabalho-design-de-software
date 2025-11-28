@@ -6,17 +6,9 @@ export default function DashboardPage() {
         </h1>
         
         <p className="text-gray-600 mb-8">
-          Use o menu lateral para gerenciar Clientes, Reservas e Espaços.
+          Use o menu lateral para gerenciar Clientes, Reservas, Espaços e Administradores.
         </p>
-  
-        {/* Cartões de Estatísticas Simples (Exemplo) */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <DashboardCard title="Reservas Hoje" value="12" />
-          <DashboardCard title="Novos Clientes" value="3" />
-          <DashboardCard title="Espaços Ocupados" value="8/10" />
-        </div>
-        
-        {/* Você pode adicionar gráficos, listas de tarefas aqui... */}
+      
       </div>
     );
   }
