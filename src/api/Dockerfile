@@ -1,4 +1,4 @@
-# Stage 1: Build TypeScript
+# Etapa 1 que vai buildar a aplicacao
 FROM node:20-alpine AS build
 WORKDIR /app
 COPY package*.json ./
@@ -6,7 +6,8 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-# Stage 2: Production
+# aqui ele pega o arquivo transpilado na etapa 1 e roda de uma vez com o CMD npm start
+# nao tem como rodar como npm run dev, o CMD executa so quando o docker ta no ar entao ja usamos o build pra funcionar certinho
 FROM node:20-alpine
 WORKDIR /app
 COPY package*.json ./

@@ -4,16 +4,14 @@ import Cliente from "./Cliente";
 import Espaco from "./Espaco";
 import ADM from "./ADM";
 
-// 1️⃣ Interface com os atributos da tabela
 interface ReservaAttributes {
   id_reserva: number;
-  data: string; // DATEONLY é representado como string no Sequelize
+  data: string;
   id_cliente: number;
   id_espaco: number;
   id_adm?: number;
 }
 
-// 2️⃣ Classe que estende Model
 class Reserva extends Model<ReservaAttributes> implements ReservaAttributes {
   public id_reserva!: number;
   public data!: string;
@@ -22,7 +20,6 @@ class Reserva extends Model<ReservaAttributes> implements ReservaAttributes {
   public id_adm?: number;
 }
 
-// 3️⃣ Inicialização do model
 Reserva.init(
   {
     id_reserva: {
@@ -56,7 +53,6 @@ Reserva.init(
   }
 );
 
-// 4️⃣ Relacionamentos
 Reserva.belongsTo(Cliente, { foreignKey: "id_cliente" });
 Reserva.belongsTo(Espaco, { foreignKey: "id_espaco" });
 Reserva.belongsTo(ADM, { foreignKey: "id_adm" });

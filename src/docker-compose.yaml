@@ -15,7 +15,7 @@ services:
     volumes:
       - dados_postgres:/var/lib/postgresql/data
 
-      # Rode os arquivos em ordem alfabética:
+      # aqui ele coloca tudo no diretorio de entry pra inicializar o banco dom o db e o schema
       - ./schema_dona_maria.sql:/docker-entrypoint-initdb.d/01_schema_dona_maria.sql
 
   api:

@@ -2,7 +2,6 @@ import { DataTypes, Model } from "sequelize";
 import sequelize from "../database";
 import Reserva from "./Reserva";
 
-// 1️⃣ Interface com os atributos da tabela
 interface PagamentoAttributes {
   id_pagamento: number;
   valorTotal: number;
@@ -11,7 +10,6 @@ interface PagamentoAttributes {
   id_reserva: number;
 }
 
-// 2️⃣ Classe que estende Model
 class Pagamento extends Model<PagamentoAttributes> implements PagamentoAttributes {
   public id_pagamento!: number;
   public valorTotal!: number;
@@ -20,7 +18,6 @@ class Pagamento extends Model<PagamentoAttributes> implements PagamentoAttribute
   public id_reserva!: number;
 }
 
-// 3️⃣ Inicialização do model
 Pagamento.init(
   {
     id_pagamento: {
@@ -53,7 +50,6 @@ Pagamento.init(
   }
 );
 
-// 4️⃣ Relacionamentos
 Pagamento.belongsTo(Reserva, { foreignKey: "id_reserva" });
 Reserva.hasOne(Pagamento, { foreignKey: "id_reserva" });
 

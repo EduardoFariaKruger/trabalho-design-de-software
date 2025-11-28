@@ -1,14 +1,11 @@
--- 1. Criação do Usuário e Schema
--- A criação do usuário deve ser feita pelo usuário "postgres"
+-- Schema que o docker vai rodar na primeira inicializacao e se nao existir ja um volume nele
+-- importante pq a gente precisa de dados nem que seja pra visualizar/testar
 CREATE USER dona_maria WITH PASSWORD 'dona_maria_123';
 
--- Cria o schema se não existir (PostgreSQL 9.3+ suporta IF NOT EXISTS para SCHEMA)
 CREATE SCHEMA IF NOT EXISTS dona_maria_schema AUTHORIZATION dona_maria;
 
--- Concede o direito de usar o schema (necessário antes de SET search_path)
 GRANT USAGE ON SCHEMA dona_maria_schema TO dona_maria;
 
--- Define o schema padrão para que não precisemos prefixar todas as tabelas
 SET search_path TO dona_maria_schema;
 
 -- 2. Criação das Tabelas
@@ -26,7 +23,7 @@ CREATE TABLE adm (
     senha TEXT NOT NULL
 );
 
--- CORREÇÃO: Adicionada vírgula entre 'descricao TEXT' e 'capacidade INTEGER NOT NULL'
+
 CREATE TABLE Espaco (
     id_espaco SERIAL PRIMARY KEY,
     nome TEXT,
@@ -42,9 +39,7 @@ CREATE TABLE Reserva (
     data DATE NOT NULL,
     
     id_cliente INTEGER NOT NULL,
-    -- O ID do espaço deve ser UNIQUE apenas se for uma reserva por espaço/dia. 
-    -- Se um espaço pode ser reservado em dias diferentes, remova o UNIQUE.
-    -- Mantido 'UNIQUE' conforme o código original.
+    -- O ID do espaço deve ser UNIQUE para ser uma reserva por espaço/dia.
     id_espaco INTEGER UNIQUE NOT NULL, 
     id_adm INTEGER,
     
@@ -64,14 +59,14 @@ CREATE TABLE Pagamento (
     FOREIGN KEY (id_reserva) REFERENCES Reserva(id_reserva)
 );
 
--- 3. Gerenciamento de Permissões (para o usuário 'dona_maria')
+-- 3. Gerenciamento de Permissões (para o usuário 'dona_maria') que vai ser usado na API depois
 
 -- Concede direitos sobre objetos existentes no schema
 GRANT ALL ON ALL TABLES IN SCHEMA dona_maria_schema TO dona_maria;
 GRANT ALL ON ALL SEQUENCES IN SCHEMA dona_maria_schema TO dona_maria;
 
 -- Define que todos os futuros objetos criados por 'dona_maria' em 'dona_maria_schema'
--- terão permissões automáticas para o próprio 'dona_maria'.
+-- terão permissões automáticas para o próprio 'dona_maria'. Esse eh o user que o banco vai usar
 ALTER DEFAULT PRIVILEGES FOR ROLE dona_maria IN SCHEMA dona_maria_schema  
     GRANT ALL ON TABLES TO dona_maria;
 

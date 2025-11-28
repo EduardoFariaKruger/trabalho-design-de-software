@@ -1,7 +1,6 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../database";
 
-// 1️⃣ Interface com os atributos da tabela
 interface EspacoAttributes {
   id_espaco?: number;
   nome?: string;
@@ -9,10 +8,9 @@ interface EspacoAttributes {
   capacidade: number;
   preco: number;
   tipo?: string;
-  diasindisponiveis?: string[]; // array de datas
+  diasindisponiveis?: string[];
 }
 
-// 2️⃣ Classe que estende Model
 class Espaco extends Model<EspacoAttributes> implements EspacoAttributes {
   public id_espaco!: number;
   public nome?: string;
@@ -23,7 +21,6 @@ class Espaco extends Model<EspacoAttributes> implements EspacoAttributes {
   public diasindisponiveis?: string[];
 }
 
-// 3️⃣ Inicialização do model
 Espaco.init(
   {
     id_espaco: {
@@ -49,7 +46,7 @@ Espaco.init(
       type: DataTypes.TEXT
     },
     diasindisponiveis: {
-      field: "diasindisponiveis", // coluna real no banco
+      field: "diasindisponiveis",
       type: DataTypes.ARRAY(DataTypes.DATEONLY)
     }
   },

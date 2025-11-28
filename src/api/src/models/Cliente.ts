@@ -1,15 +1,13 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../database";
 
-// 1️⃣ Interface com os atributos da tabela
 interface ClienteAttributes {
   id_cliente?: number;
   nome: string;
   cpf: number;
-  datanasc?: string; // opcional, formato DATEONLY
+  datanasc?: string;
 }
 
-// 2️⃣ Classe que estende Model
 class Cliente extends Model<ClienteAttributes> implements ClienteAttributes {
   public id_cliente!: number;
   public nome!: string;
@@ -17,7 +15,6 @@ class Cliente extends Model<ClienteAttributes> implements ClienteAttributes {
   public datanasc?: string;
 }
 
-// 3️⃣ Inicialização do model
 Cliente.init(
   {
     id_cliente: {

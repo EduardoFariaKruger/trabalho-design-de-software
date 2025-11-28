@@ -17,12 +17,11 @@ import cors from "cors";
 const app = express();
 
 
-// Libera todas as origens (mais simples)
-app.use(cors());
+// Libera todas as origens (mais simples pra nao ter que definir endereco a endereco)
+//app.use(cors());
 
-// ou para liberar só o front-end:
 app.use(cors({
-  origin: "http://localhost:4000",   // seu frontend
+  origin: "http://localhost:4000",   //o front
   methods: "GET,POST,PUT,DELETE",
   credentials: true
 }));
@@ -35,7 +34,7 @@ app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 console.log(swaggerDocument);
 
-// Middleware for JSON parsing
+// Chama cada controller, entao o app recebe, repassa a requisicao pras funcoes e rotas corretas e depois devolve
 app.use(express.json());
 app.use("/adm", ADMRoutes);
 app.use("/clientes", ClienteRoutes);
@@ -44,7 +43,7 @@ app.use("/reservas", ReservaRoutes);
 app.use("/pagamentos", PagamentoRoutes);
 app.use("/auth", auth);
 
-// Test database connection
+// Testa a conexao com o banco e retorna se nao conseguir pra nem iniciar o back
 
 sequelize
   .authenticate()
@@ -54,7 +53,7 @@ sequelize
 
 
 
-
+//aqui eh pq deu boa mesmo, tem que avisar
 app.get("/", (_req, res) => {
 	res.status(200).json({ mensagem: "deu boa a conexão, confia" })
 })
