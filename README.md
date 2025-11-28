@@ -48,7 +48,7 @@ API: http://localhost:3000
 
 Frontend: http://localhost:4000
 
-
+DOCUMENTACAO DA API: http://localhost:3000/docs
 
 
 
