@@ -11,15 +11,15 @@ const router = express.Router();
 router.get("/", async (req, res) => {
   try {
     const pagamentos = await Pagamento.findAll({
-      include: [{ model: Reserva }]
+      include: [{ model: Reserva }],
     });
 
     const response = pagamentos.map((p) => ({
       ...p.toJSON(),
       _links: {
         self: { href: `/pagamentos/${p.id_pagamento}` },
-        reserva: { href: `/reservas/${p.id_reserva}` }
-      }
+        reserva: { href: `/reservas/${p.id_reserva}` },
+      },
     }));
 
     res.json(response);
@@ -35,7 +35,7 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const pagamento = await Pagamento.findByPk(req.params.id, {
-      include: [{ model: Reserva }]
+      include: [{ model: Reserva }],
     });
 
     if (!pagamento) {
@@ -46,8 +46,8 @@ router.get("/:id", async (req, res) => {
       ...pagamento.toJSON(),
       _links: {
         all: { href: "/pagamentos" },
-        reserva: { href: `/reservas/${pagamento.id_reserva}` }
-      }
+        reserva: { href: `/reservas/${pagamento.id_reserva}` },
+      },
     });
   } catch (err) {
     res.status(500).json({ error: "Erro ao buscar pagamento", details: err });
@@ -66,11 +66,13 @@ router.post("/", async (req, res) => {
       ...pagamento.toJSON(),
       _links: {
         self: { href: `/pagamentos/${pagamento.id_pagamento}` },
-        all: { href: "/pagamentos" }
-      }
+        all: { href: "/pagamentos" },
+      },
     });
-  } catch (err) {
-    res.status(400).json({ error: "Erro ao criar pagamento", details: err });
+  } catch (err: any) {
+    return res
+      .status(400)
+      .json({ error: "Erro ao criar pagamento", details: err });
   }
 });
 
@@ -92,11 +94,13 @@ router.put("/:id", async (req, res) => {
       ...pagamento.toJSON(),
       _links: {
         self: { href: `/pagamentos/${pagamento.id_pagamento}` },
-        all: { href: "/pagamentos" }
-      }
+        all: { href: "/pagamentos" },
+      },
     });
   } catch (err) {
-    res.status(400).json({ error: "Erro ao atualizar pagamento", details: err });
+    res
+      .status(400)
+      .json({ error: "Erro ao atualizar pagamento", details: err });
   }
 });
 
@@ -107,7 +111,7 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   try {
     const rows = await Pagamento.destroy({
-      where: { id_pagamento: req.params.id }
+      where: { id_pagamento: req.params.id },
     });
 
     if (rows === 0) {
@@ -117,8 +121,8 @@ router.delete("/:id", async (req, res) => {
     res.json({
       message: "Pagamento removido com sucesso",
       _links: {
-        all: { href: "/pagamentos" }
-      }
+        all: { href: "/pagamentos" },
+      },
     });
   } catch (err) {
     res.status(500).json({ error: "Erro ao deletar pagamento", details: err });

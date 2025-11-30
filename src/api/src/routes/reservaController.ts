@@ -3,6 +3,8 @@ import Reserva from "../models/Reserva";
 import Cliente from "../models/Cliente";
 import Espaco from "../models/Espaco";
 import ADM from "../models/ADM";
+import { verificarDisponibilidade } from "../middlewares/verificarDisponibilidade";
+import Pagamento from "../models/Pagamento";
 
 const router = express.Router();
 
@@ -13,11 +15,7 @@ const router = express.Router();
 router.get("/", async (req, res) => {
   try {
     const reservas = await Reserva.findAll({
-      include: [
-        { model: Cliente },
-        { model: Espaco },
-        { model: ADM }
-      ]
+      include: [{ model: Cliente }, { model: Espaco }, { model: ADM }],
     });
 
     const response = reservas.map((r) => ({
@@ -26,8 +24,8 @@ router.get("/", async (req, res) => {
         self: { href: `/reservas/${r.id_reserva}` },
         cliente: { href: `/clientes/${r.id_cliente}` },
         espaco: { href: `/espacos/${r.id_espaco}` },
-        adm: r.id_adm ? { href: `/adm/${r.id_adm}` } : null
-      }
+        adm: r.id_adm ? { href: `/adm/${r.id_adm}` } : null,
+      },
     }));
 
     res.json(response);
@@ -43,11 +41,7 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const reserva = await Reserva.findByPk(req.params.id, {
-      include: [
-        { model: Cliente },
-        { model: Espaco },
-        { model: ADM }
-      ]
+      include: [{ model: Cliente }, { model: Espaco }, { model: ADM }],
     });
 
     if (!reserva) {
@@ -60,8 +54,8 @@ router.get("/:id", async (req, res) => {
         all: { href: "/reservas" },
         cliente: { href: `/clientes/${reserva.id_cliente}` },
         espaco: { href: `/espacos/${reserva.id_espaco}` },
-        adm: reserva.id_adm ? { href: `/adm/${reserva.id_adm}` } : null
-      }
+        adm: reserva.id_adm ? { href: `/adm/${reserva.id_adm}` } : null,
+      },
     });
   } catch (err) {
     res.status(500).json({ error: "Erro ao buscar reserva", details: err });
@@ -72,16 +66,17 @@ router.get("/:id", async (req, res) => {
    CRIAR UMA RESERVA
    POST /reservas
 ============================================================ */
-router.post("/", async (req, res) => {
+router.post("/", verificarDisponibilidade, async (req, res) => {
   try {
     const reserva = await Reserva.create(req.body);
 
     res.status(201).json({
       ...reserva.toJSON(),
+      id_reserva: reserva.id_reserva,
       _links: {
         self: { href: `/reservas/${reserva.id_reserva}` },
-        all: { href: "/reservas" }
-      }
+        all: { href: "/reservas" },
+      },
     });
   } catch (err) {
     res.status(400).json({ error: "Erro ao criar reserva", details: err });
@@ -92,7 +87,7 @@ router.post("/", async (req, res) => {
    ATUALIZAR RESERVA
    PUT /reservas/:id
 ============================================================ */
-router.put("/:id", async (req, res) => {
+router.put("/:id", verificarDisponibilidade, async (req, res) => {
   try {
     const reserva = await Reserva.findByPk(req.params.id);
 
@@ -106,8 +101,8 @@ router.put("/:id", async (req, res) => {
       ...reserva.toJSON(),
       _links: {
         self: { href: `/reservas/${reserva.id_reserva}` },
-        all: { href: "/reservas" }
-      }
+        all: { href: "/reservas" },
+      },
     });
   } catch (err) {
     res.status(400).json({ error: "Erro ao atualizar reserva", details: err });
@@ -120,19 +115,35 @@ router.put("/:id", async (req, res) => {
 ============================================================ */
 router.delete("/:id", async (req, res) => {
   try {
-    const rows = await Reserva.destroy({
-      where: { id_reserva: req.params.id }
-    });
+    const reserva = await Reserva.findByPk(req.params.id);
 
-    if (rows === 0) {
+    if (!reserva) {
       return res.status(404).json({ error: "Reserva não encontrada" });
     }
+
+    const espaco = await Espaco.findByPk(reserva.id_espaco);
+
+    if (espaco) {
+      const diasAtualizados = (espaco.diasindisponiveis || []).filter(
+        (dia: string) => dia !== reserva.data
+      );
+
+      await espaco.update({ ...espaco.toJSON(), diasindisponiveis: diasAtualizados });
+    }
+
+    // Deleta pagamento associado
+    await Pagamento.destroy({
+      where: { id_reserva: req.params.id },
+    });
+
+    // Deleta a reserva
+    await reserva.destroy();
 
     res.json({
       message: "Reserva removida com sucesso",
       _links: {
-        all: { href: "/reservas" }
-      }
+        all: { href: "/reservas" },
+      },
     });
   } catch (err) {
     res.status(500).json({ error: "Erro ao deletar reserva", details: err });

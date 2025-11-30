@@ -39,13 +39,14 @@ CREATE TABLE Reserva (
     data DATE NOT NULL,
     
     id_cliente INTEGER NOT NULL,
-    -- O ID do espaço deve ser UNIQUE para ser uma reserva por espaço/dia.
-    id_espaco INTEGER UNIQUE NOT NULL, 
+    id_espaco INTEGER NOT NULL, 
     id_adm INTEGER,
     
     FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente),
     FOREIGN KEY (id_espaco) REFERENCES Espaco(id_espaco),
-    FOREIGN KEY (id_adm) REFERENCES adm(id_adm)
+    FOREIGN KEY (id_adm) REFERENCES adm(id_adm),
+
+    UNIQUE (id_espaco, data) 
 );
 
 CREATE TABLE Pagamento (

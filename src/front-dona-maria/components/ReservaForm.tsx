@@ -15,6 +15,7 @@ interface ReservaForma {
     valorTotal: number; 
     valorPago: number;
     tipoPagamento: string;
+    id_pagamento?: number;
 }
 
 const ID_ADM_FIXO = 1; 
@@ -29,6 +30,7 @@ export default function ReservaForm({ reserva, onClose, onSave }: ReservaFormPro
     const isEditing = !!reserva;
 
     const [formData, setFormData] = useState({
+        id_pagamento: reserva?.id_pagamento,
         data: reserva?.data || '',
         id_cliente: reserva?.id_cliente.toString() || '',
         id_espaco: reserva?.id_espaco.toString() || '',
@@ -104,6 +106,7 @@ export default function ReservaForm({ reserva, onClose, onSave }: ReservaFormPro
 
         const dataToSave: ReservaForma = {
             id_reserva: reserva?.id_reserva || null,
+            id_pagamento: formData.id_pagamento,
             data: formData.data,
             id_cliente: parseInt(formData.id_cliente, 10),
             id_espaco: parseInt(formData.id_espaco, 10),

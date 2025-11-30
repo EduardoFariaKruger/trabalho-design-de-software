@@ -10,7 +10,10 @@ interface PagamentoAttributes {
   id_reserva: number;
 }
 
-class Pagamento extends Model<PagamentoAttributes> implements PagamentoAttributes {
+class Pagamento
+  extends Model<PagamentoAttributes>
+  implements PagamentoAttributes
+{
   public id_pagamento!: number;
   public valorTotal!: number;
   public valorPago!: number;
@@ -23,30 +26,32 @@ Pagamento.init(
     id_pagamento: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
     },
     valorTotal: {
+      field: "valortotal",
       type: DataTypes.FLOAT,
-      allowNull: false
+      allowNull: false,
     },
     valorPago: {
+      field: "valorpago",
       type: DataTypes.FLOAT,
-      allowNull: false
+      allowNull: false,
     },
     tipoPagamento: {
-      type: DataTypes.TEXT
+      field: "tipopagamento",
+      type: DataTypes.TEXT,
     },
     id_reserva: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      unique: true
-    }
+    },
   },
   {
     sequelize,
     tableName: "pagamento",
     schema: "dona_maria_schema",
-    timestamps: false
+    timestamps: false,
   }
 );
 
